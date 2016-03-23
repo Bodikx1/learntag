@@ -2,52 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz</title>
+    <title>Learn tag</title>
     <meta name="viewport" content="width=device-width">
-    <link href="/dist/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!--<link href="/dist/vendor/bootstrap/css/bootstrap-theme.min.css"  rel="stylesheet">-->
     <link href="/dist/vendor/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="/dist/vendor/plyr/plyr.css" rel="stylesheet">
     <link href="/dist/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/dist/css/app.css" rel="stylesheet">
+    <link href="/dist/css/learntag.css" rel="stylesheet">
 </head>
 <body>
 
 <article>
-    <div class="container-fluid form">
-        <ul class="questions" style="margin-top: 10%; margin-bottom: 30%;"></ul>
-    </div>
-
-    <div id="fixed-footer" class="lightness-step ">
-        <div class="overlay"></div>
-        <div class="persistent background"></div>
-        <div class="nav-buttons">
-            <div class="button-wrapper up">
-                <div class="button nav hover-effect disabled"><span></span><span class="glyphicon glyphicon-chevron-up"></span></div>
-            </div>
-            <div class="button-wrapper down">
-                <div class="button nav hover-effect disabled"><span></span><span class="glyphicon glyphicon-chevron-down"></span></div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <div class="content">
-            <div id="progress">
-                <div class="label"><span>0 of 0 answered</span></div>
-                <div class="bar">
-                    <div class="wrapper"></div>
-                    <div class="progress" style="width: 0%;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="unfixed-footer" class="lightness-step " style="display:none; height: 150px;">
-        <div class="content">
-            <div class="button-wrapper submit">
-                <div class="button general hover-effect disabled">Submit</div>
-                <div class="button-text">press <strong>ENTER</strong></div>
-            </div>
-        </div>
+    <div class="container-fluid">
+        <div class="learntag"></div>
     </div>
 </article>
 
@@ -93,10 +59,37 @@
 
 <script src="/config.js"></script>
 <script src="/dist/vendor/jquery/jquery.min.js"></script>
-<script src="/dist/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/dist/vendor/sweetalert/sweetalert.min.js"></script>
 <script src="/dist/vendor/plyr/plyr.js"></script>
-<script src="/dist/js/ajax_api.js"></script>
-<script src="/dist/js/app.js"></script>
+<script src="/dist/js/learntag.js"></script>
+<script>
+    $(document).ready(function () {
+        LearnTag('.learntag').build("000-display-vocabulary-with-image", {
+            "title": "Study the words",
+            "data": [
+                {
+                    "lang1": "Hello",
+                    "lang2": "Hallo",
+                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                },
+                {
+                    "lang1": "I am Sandra",
+                    "lang2": "Ich Bin Sandra",
+                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                },
+                {
+                    "lang1": "How are you?",
+                    "lang2": "Wie geht's?",
+                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                },
+                {
+                    "lang1": "Fine thank you",
+                    "lang2": "Gut danke",
+                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                }
+            ]
+        });
+    });
+</script>
 </body>
 </html>

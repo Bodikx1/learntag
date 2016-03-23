@@ -17,7 +17,7 @@ var uglifyMinify = false;
 var concatCssOpt = {rebaseUrls: false}; //
 var j = 'js',
     c = 'css';
-var colorTheme = 'green';
+var colorTheme = 'default';
 
 //=============== routine tasks (same for each project) ===================
 
@@ -41,13 +41,14 @@ gulp.task('main', function () {
 
     // css
     stream = gulp.src([
+            sourcesDir + bowDir + 'bootstrap/dist/css/bootstrap.css',
             sourcesDir + 'css/*.scss',
             sourcesDir + 'css/color-themes/'+colorTheme+'.scss'
         ])
         .pipe(sass().on('error', sass.logError));
     min(stream, c);
     stream
-        .pipe(concatCss("app.css", concatCssOpt))
+        .pipe(concatCss("learntag.css", concatCssOpt))
         .pipe(gulp.dest(destDir + 'css'));
 
     //img
