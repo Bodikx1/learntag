@@ -25,11 +25,11 @@
         }
       }
 
-      .image::after {
+      .image::before {
         position: absolute;
         display: block;
         content: "";
-        top: 205px;
+        margin-top: 193px;
         margin-left: 45px;
         width: 0;
         height: 0;
@@ -66,7 +66,7 @@
         background: #eea900;
       }
 
-      .image::after {
+      .image::before {
         border-top: 15px solid #eea900;
         border-left: 15px solid transparent;
       }
@@ -77,7 +77,7 @@
         background: #00ee21 !important;
       }
 
-      .image::after {
+      .image::before {
         border-top: 15px solid #00ee21 !important;;
         border-left: 15px solid transparent !important;;
       }
@@ -88,7 +88,7 @@
         background: #ee0005 !important;;
       }
 
-      .image::after {
+      .image::before {
         border-top: 15px solid #ee0005 !important;;
         border-left: 15px solid transparent !important;;
       }
