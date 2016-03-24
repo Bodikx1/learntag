@@ -41,14 +41,12 @@ gulp.task('main', function () {
 
     // css
     stream = gulp.src([
-            sourcesDir + bowDir + 'bootstrap/dist/css/bootstrap.css',
-            sourcesDir + 'css/*.scss',
-            sourcesDir + 'css/color-themes/'+colorTheme+'.scss'
+            sourcesDir + 'css/learntag.scss'
         ])
         .pipe(sass().on('error', sass.logError));
     min(stream, c);
     stream
-        .pipe(concatCss("learntag.css", concatCssOpt))
+        //.pipe(concatCss("learntag.css", concatCssOpt))
         .pipe(gulp.dest(destDir + 'css'));
 
     //img

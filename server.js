@@ -62,6 +62,27 @@ http.createServer(function (req, res) {
                                     "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
                                 }
                             ]
+                        },
+                        "002-match-vocabulary-n-wo-image": {
+                            "title": "Match the items",
+                            "data": [
+                                {
+                                    "lang1": "the fruit",
+                                    "lang2": "das Obst"
+                                },
+                                {
+                                    "lang1": "the vegetables",
+                                    "lang2": "das Gemuse"
+                                },
+                                {
+                                    "lang1": "the cheese",
+                                    "lang2": "der Kase"
+                                },
+                                {
+                                    "lang1": "the sausage",
+                                    "lang2": "die Wurst"
+                                }
+                            ]
                         }
                     }));
                 } else {
