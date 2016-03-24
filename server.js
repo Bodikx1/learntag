@@ -13,421 +13,56 @@ http.createServer(function (req, res) {
                 if (req.method === "GET") {
                     res.writeHead(200, {"Content-Type": "application/json"});
                     res.end(JSON.stringify({
-                        "fields": [
-                            {
-                                "id": 200,
-                                "type": "statement",
-                                "question": "Hi! Thanks for spending time with us :-)"
-                            },
-
-                            {
-                                "id": 100,
-                                "type": "score",
-                                "quick-validate": true,
-                                "question": "How many people witnessed the incident?",
-                                "icon": "user",
-                                "maximum": 6
-                            },
-
-                            {
-                                "id": 101,
-                                "type": "range",
-                                "quick-validate": true,
-                                "question": "How badly does this injury affect them?",
-                                "min": 0,
-                                "max": 8,
-                                "labels": {
-                                    0: "Not at all", 4: "Slightly", 8: "Extremely"
+                        "000-display-vocabulary-with-image": {
+                            "title": "Study the words",
+                                "data": [
+                                {
+                                    "lang1": "Hello",
+                                    "lang2": "Hallo",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "I am Sandra",
+                                    "lang2": "Ich Bin Sandra",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "How are you?",
+                                    "lang2": "Wie geht's?",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "Fine thank you",
+                                    "lang2": "Gut danke",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
                                 }
-                            },
-
-                            {
-                                "id": 201,
-                                "type": "textfield",
-                                "question": "What is your startup/company name?",
-                                "description": ""
-                            },
-
-                            {
-                                "id": 202,
-                                "type": "textfield",
-                                "required": false,
-                                "question": "What is your first and lastname?",
-                                "description": "We would love to get to know you better!"
-                            },
-
-                            {
-                                "id": 203,
-                                "type": "textfield",
-                                "question": "What do you in the company?",
-                                "description": "We would love to get to know you better!"
-                            },
-
-                            {
-                                "id": 204,
-                                "type": "list",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Please tag your activity ?",
-                                "choices": [
-                                    {
-                                        "id": "Big Data",
-                                        "label": "Big Data"
-                                    },
-                                    {
-                                        "id": "Digital Health",
-                                        "label": "Digital Health"
-                                    },
-                                    {
-                                        "id": "Education Technology",
-                                        "label": "Education Technology"
-                                    },
-                                    {
-                                        "id": "Hardware",
-                                        "label": "Hardware"
-                                    },
-                                    {
-                                        "id": "Media & AdTech",
-                                        "label": "Media & AdTech"
-                                    },
-                                    {
-                                        "id": "Mobility & Automotive",
-                                        "label": "Mobility & Automotive"
-                                    },
-                                    {
-                                        "id": "Smart Cities",
-                                        "label": "Smart Cities"
-                                    },
-                                    {
-                                        "id": "Cloud & XaaS",
-                                        "label": "Cloud & XaaS"
-                                    },
-                                    {
-                                        "id": "eCommerce",
-                                        "label": "eCommerce"
-                                    },
-                                    {
-                                        "id": "Fintech",
-                                        "label": "Fintech"
-                                    },
-                                    {
-                                        "id": "Logistics",
-                                        "label": "Logistics"
-                                    },
-                                    {
-                                        "id": "IoT",
-                                        "label": "IoT"
-                                    },
-                                    {
-                                        "id": "Security",
-                                        "label": "Security"
-                                    },
-                                    {
-                                        "id": "Smart Home",
-                                        "label": "Smart Home"
-                                    },
-                                    {
-                                        "id": "VR",
-                                        "label": "Virtual Reality"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 300,
-                                "type": "section",
-                                "question": "SECTION / About  developers...",
-                                "attachment": {
-                                    "type": "image",
-                                    "src_path": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT1b446FrpP6A1V2cuLIF9UslY5IGacSfnhyAbVphPOYtJT9vc"
+                            ]
+                        },
+                        "001-match-vocabulary-1-with-image": {
+                            "title": "Choose the correct translation",
+                            "data": [
+                                {
+                                    "lang1": "Hello",
+                                    "lang2": "Hallo",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "I am Sandra",
+                                    "lang2": "Ich Bin Sandra",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "How are you?",
+                                    "lang2": "Wie geht's?",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
+                                },
+                                {
+                                    "lang1": "Fine thank you",
+                                    "lang2": "Gut danke",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
                                 }
-                            },
-
-                            {
-                                "id": 301,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Do you employ developers?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 302,
-                                "type": "textfield",
-                                "question": "How do you look for developers ?",
-                                "description": "Only locally / Outsourcing / Free-lancers, ..."
-                            },
-
-                            {
-                                "id": 303,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Would you be interested in a quick and efficient logical quiz that helps you evaluate developers before hiring them?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 400,
-                                "type": "section",
-                                "question": "SECTION / About  storage..."
-                            },
-
-                            {
-                                "id": 401,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Do you store a growing base of documents, images, videos...?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 402,
-                                "type": "list",
-                                "multiple": true,
-                                "question": "What kind of storage do you use ?",
-
-                                "choices": [
-                                    {
-                                        "id": "Azure",
-                                        "label": "Microsoft Azure"
-                                    },
-                                    {
-                                        "id": "Google",
-                                        "label": "Google Cloud Platform"
-                                    },
-                                    {
-                                        "id": "AWS",
-                                        "label": "Amazon AWS / S3"
-                                    },
-                                    {
-                                        "id": "own solution",
-                                        "label": "My own datastore"
-                                    },
-                                    {
-                                        "id": "Dedicated",
-                                        "label": "Dedicated servers"
-                                    },
-                                    {
-                                        "id": "Other",
-                                        "label": "Other..."
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 403,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Would you be interested in a simple and cost-effective cloud storage solution?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 500,
-                                "type": "section",
-                                "question": "SECTION / About  emails..."
-                            },
-
-                            {
-                                "id": 502,
-                                "type": "textfield",
-                                "question": "Which tools are you using for Campaign Emails ?",
-                                "description": "ex. MailChimp, ..."
-                            },
-
-                            {
-                                "id": 503,
-                                "type": "textfield",
-                                "question": "What kind of transactional emails do you send to your customers?",
-                                "description": "ex. registration, lost password, ... what else ?"
-                            },
-
-                            {
-                                "id": 504,
-                                "type": "textfield",
-                                "question": "Which tools are you using for transactional emails ?",
-                                "description": "ex. SendGrid, MailJet, Mailinblue, MailChimp, .."
-                            },
-
-                            {
-                                "id": 505,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Do you feel you that you are losing some time managing transactional emails ? (Check them, fix wording, design problems...) ?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 600,
-                                "type": "section",
-                                "question": "SECTION / About  images..."
-                            },
-
-                            {
-                                "id": 601,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Do you deal with many images in your product/website/application?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 602,
-                                "type": "textfield",
-                                "question": "If yes, how do you resize them and optimize image loading time?",
-                                "description": "Aaa, cloudinary imgifozjorzueri"
-                            },
-
-                            {
-                                "id": 603,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Do you feel that you are losing some time managing images ?",
-                                "choices": [
-                                    {
-                                        "id": 1,
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": 0,
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 800,
-                                "type": "boolean",
-                                "multiple": false,
-                                "quick-validate": true,
-                                "question": "Are you the CTO ?",
-                                "choices": [
-                                    {
-                                        "id": "1",
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "id": "0",
-                                        "label": "No"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 801,
-                                "type": "list",
-                                "multiple": true,
-                                "question": "Which language are you using ?",
-                                "choices": [
-                                    {
-                                        "id": "Java",
-                                        "label": "Java"
-                                    },
-                                    {
-                                        "id": "PHP",
-                                        "label": "PHP"
-                                    },
-                                    {
-                                        "id": "Python",
-                                        "label": "Python"
-                                    }
-                                ]
-                            },
-
-                            {
-                                "id": 803,
-                                "type": "textfield",
-                                "question": "Which frameworks are you using ?",
-                                "description": "Django, Symfony, Laravel, .."
-                            },
-
-                            {
-                                "id": 900,
-                                "type": "textfield",
-                                "question": "What is your email?",
-                                "description": "We would love to get to know you better!"
-                            },
-
-                            {
-                                "id": 904,
-                                "type": "statement",
-                                "question": "Thanks !"
-                            },
-
-                            {
-                                "id": 905,
-                                "type": "statement",
-                                "question": ":-)"
-                            },
-
-                            {
-                                "id": 911,
-                                "type": "textfield",
-                                "question": "Comments ?",
-                                "description": "Comments ..."
-                            }
-                        ]
+                            ]
+                        }
                     }));
                 } else {
                     res.statusCode = 404;

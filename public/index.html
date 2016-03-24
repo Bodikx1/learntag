@@ -64,30 +64,31 @@
 <script src="/dist/js/learntag.js"></script>
 <script>
     $(document).ready(function () {
-        LearnTag('.learntag').build("000-display-vocabulary-with-image", {
-            "title": "Study the words",
-            "data": [
-                {
-                    "lang1": "Hello",
-                    "lang2": "Hallo",
-                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
-                },
-                {
-                    "lang1": "I am Sandra",
-                    "lang2": "Ich Bin Sandra",
-                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
-                },
-                {
-                    "lang1": "How are you?",
-                    "lang2": "Wie geht's?",
-                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
-                },
-                {
-                    "lang1": "Fine thank you",
-                    "lang2": "Gut danke",
-                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg"
-                }
-            ]
+        var tagModule = 1,
+            responseData = null,
+            dataIsRecieved = $.Deferred();
+
+        var continueClickHandler = function () {
+            tagModule++;
+            LearnTag('.learntag').build(Object.keys(responseData)[tagModule-1], responseData[Object.keys(responseData)[tagModule-1]], continueClickHandler);
+        };
+
+        $.ajax({
+            url: '/api/questions/',
+            method: 'GET',
+            async: true,
+            data: null,
+            timeout: 1000,
+            success: function (data) {
+                responseData = data;
+                dataIsRecieved.resolve();
+            },
+            error: function (msg, error, HTTPErr) {
+            }
+        });
+
+        dataIsRecieved.done(function () {
+            LearnTag('.learntag').build(Object.keys(responseData)[tagModule-1], responseData[Object.keys(responseData)[tagModule-1]], continueClickHandler);
         });
     });
 </script>
