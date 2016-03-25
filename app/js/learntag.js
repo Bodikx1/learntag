@@ -161,19 +161,25 @@ var LearnTag = function () {
                     var anim1 = $.Deferred(),
                         anim2 = $.Deferred();
 
-                    jQuery(self).find('.image').animate({
-                        marginRight: "-15px"
+                    jQuery(self).find('.wrap:nth-of-type(2)').css({
+                        position: 'relative'
+                    }).animate({
+                        right: "-15px"
                     }, 50, "linear", anim1.resolve);
 
                     anim1.done(function() {
-                        jQuery(self).find('.image').animate({
-                            marginRight: "15px"
+                        jQuery(self).find('.wrap:nth-of-type(2)').css({
+                            position: 'relative'
+                        }).animate({
+                            right: "15px"
                         }, 50, "linear", anim2.resolve);
                     });
 
                     anim2.done(function() {
-                        jQuery(self).find('.image').animate({
-                            marginRight: "0px"
+                        jQuery(self).find('.wrap:nth-of-type(2)').css({
+                            position: 'initial'
+                        }).animate({
+                            right: "0px"
                         }, 50, "linear");
                     });
 
@@ -182,37 +188,28 @@ var LearnTag = function () {
 
                 itemClick = function (event) {
                     // if have no non-answered questions exit function:
-                    if (jQuery(element).find('.img-item:last-of-type .continue').length) {
+                    if (!jQuery(element).find('.left-item.non-answered').length) {
                         return;
                     }
 
                     var self = this,
-                        currQuestion = jQuery(element).find('.img-item:last-of-type div'),
-                        currQuestionParent = currQuestion.parent(),
-                        currAnswer = jQuery(self).find('.lang2');
+                        currQuestion = jQuery(this).find('.lang1'),
+                        currAnswer = jQuery(element).find('.left-item.non-answered:first-of-type .lang1'),
+                        currAnswerPos = currAnswer.parent().css('position','absolute').position();
 
-                    if (currAnswer.text() === currQuestion.text()) {
+
+                        if (currAnswer.text() === currQuestion.text()) {
 
                         jQuery(self).addClass('success');
-                        currAnswer.addClass('fadeIn');
-                        currQuestion.parent().hide().html('');
 
-                        setTimeout(function () {
-                            jQuery(self).removeClass('success');
-                            // show next question
-                            setTimeout(function () {
-                                var leftQuestions = jQuery(element).find('.img-item .lang2:not([class*="fadeIn"])');
-                                randQuestion = jQuery(leftQuestions[(Math.floor(Math.random() * leftQuestions.length) + 0)]).text();
-                                if (randQuestion !== '') {
-                                    currQuestionParent.html('<div class="question">' + randQuestion + '</div>').show();
-                                } else {
-                                    currQuestionParent.html('<div class="continue btn btn-warning">Continue</div>').show();
-                                    if (continueClbFunc) {
-                                        $('.btn.continue').on('click', continueClbFunc);
-                                    }
-                                }
-                            }, 1000);
-                        }, 500);
+                        jQuery(self).find('.wrap:nth-of-type(2)').css({
+                            position: 'relative'
+                        }).animate({
+                            top: currAnswerPos.top,
+                            left: currAnswerPos.left
+                        }, 1000, "linear", function () {
+
+                        });
 
                     } else {
 
@@ -233,37 +230,37 @@ var LearnTag = function () {
                     }
                 };
 
-            for(var i=0; i < dataObj.data.length; i++) {
-                items += '<li class="img-item hover">' +
-                    '<div class="wrap text-center">' +
-                    '<div class="image">' +
-                    '<img class="img-responsive" src="' + dataObj.data[i].img + '" alt="' + dataObj.data[i].lang1 + '">' +
-                    '</div>' +
-                    '<p class="lang1">' + dataObj.data[i].lang1 + '</p>' +
-                    '<p class="lang2 animate">' + dataObj.data[i].lang2 + '</p>' +
-                    '</div>' +
-                    '</li>';
+            items += '<div class="col-sm-6"><ul class="left-items">';
 
-                if(i === dataObj.data.length-1) {
-                    items += '<li class="img-item text-center">' +
+            for(var i=0; i < dataObj.data.length; i++) {
+                items += '<li class="left-item non-answered">' +
+                    '<div class="wrap"><div class="lang2">' +dataObj.data[i].lang2+ '</div></div>' +
+                    '<div class="wrap"><div class="lang1">' +dataObj.data[i].lang1+ '</div></div>' +
+                    '</li>';
+            }
+
+            items += '</ul></div>';
+
+            items += '<div class="col-sm-6"><ul class="right-items">';
+
+            for(var r=(Math.floor(Math.random() * dataObj.data.length) + 0), i=0, added=[]; i < dataObj.data.length; r=Math.floor(Math.random() * dataObj.data.length) + 0) {
+                if (jQuery.inArray(r, added) === -1) {
+                    items += '<li class="right-item hover">' +
+                        '<div class="wrap"><div class="lang2">' + dataObj.data[r].lang2 + '</div></div>' +
+                        '<div class="wrap"><div class="lang1">' + dataObj.data[r].lang1 + '</div></div>' +
                         '</li>';
+                    added.push(r);
+                    i++;
                 }
             }
 
+            items += '</ul></div>';
+
             html = '<div class="row text-center"><h2>'+dataObj.title+'</h2></div>' +
-                '<div class="row">' +
-                '<div class="col-xs-6">' +
-                '<ul class="left-items">' + items + '</ul>' +
-                '</div>' +
-                '<div class="col-xs-6">' +
-                '<ul class="right-items">' + items + '</ul>' +
-                '</div>' +
-                '</div>';
+                '<div class="row">' + items + '</div>';
 
             jQuery(element).html(html);
-            randQuestion = jQuery(element).find('.img-item:nth-of-type('+(Math.floor(Math.random() * 4) + 1)+') .lang2').text();
-            jQuery(element).find('.img-item:last-of-type').html('<div class="question">'+randQuestion+'</div>');
-            jQuery(element).find('.img-item:not(:last-of-type)').on('click', itemClick);
+            jQuery(element).find('.right-item').on('click', itemClick);
         };
         // private methods ends;
 
@@ -288,7 +285,7 @@ var LearnTag = function () {
             }
 
             if (continueClbFunc) {
-                $('.btn.continue').on('click', continueClbFunc);
+                $('.btn.continue').length && $('.btn.continue').on('click', continueClbFunc);
             }
 
             return this;

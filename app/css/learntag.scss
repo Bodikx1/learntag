@@ -115,6 +115,162 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     }
   }
 
+  ul.left-items {
+    width: 100%;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 1px;
+    padding: 0;
+
+    li.left-item {
+      display: table-row;
+      list-style: none;
+
+      div.wrap {
+        white-space: nowrap;
+        display: table-cell;
+        padding-bottom: 10px;
+
+        div {
+          background: #eee;
+          padding: 10px;
+        }
+      }
+
+      div.wrap:nth-of-type(1) {
+        width: 25%;
+
+        div {
+          -webkit-border-top-left-radius: 5px;
+          -webkit-border-bottom-left-radius: 5px;
+          -moz-border-radius-topleft: 5px;
+          -moz-border-radius-bottomleft: 5px;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+
+      div.wrap:nth-of-type(2) {
+        div {
+          -webkit-border-top-right-radius: 5px;
+          -webkit-border-bottom-right-radius: 5px;
+          -moz-border-radius-topright: 5px;
+          -moz-border-radius-bottomright: 5px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+      }
+    }
+
+    li.left-item.non-answered {
+      div.wrap:nth-of-type(1) {
+        div {
+          padding-right: 15px;
+
+          background: linear-gradient(45deg, #eee 5px, transparent 0) 0 5px, linear-gradient(135deg, #eee 5px, #fff 0) 0 5px;
+          background-color: #eee;
+          background-position: right top;
+          background-repeat: repeat-y;
+          background-size: 10px 8px;
+        }
+      }
+
+      div.wrap:nth-of-type(2) {
+        visibility: hidden;
+      }
+    }
+  }
+
+  ul.right-items {
+    width: 100%;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 1px;
+    padding: 0;
+
+    li.right-item {
+      display: table-row;
+      list-style: none;
+
+      div.wrap {
+        white-space: nowrap;
+        display: table-cell;
+        padding-bottom: 10px;
+
+        div {
+          cursor: pointer;
+          background: #eee;
+          padding: 10px;
+        }
+      }
+
+      div.wrap:nth-of-type(1) {
+        visibility: hidden;
+        width: 25%;
+
+        div {
+          -webkit-border-top-left-radius: 5px;
+          -webkit-border-bottom-left-radius: 5px;
+          -moz-border-radius-topleft: 5px;
+          -moz-border-radius-bottomleft: 5px;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+
+      div.wrap:nth-of-type(2) {
+        div {
+          padding-left: 15px;
+
+          -webkit-border-top-right-radius: 5px;
+          -webkit-border-bottom-right-radius: 5px;
+          -moz-border-radius-topright: 5px;
+          -moz-border-radius-bottomright: 5px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+
+          background: linear-gradient(-45deg, #eee 5px, transparent 0) 0 5px, linear-gradient(-135deg, #eee 5px, #fff 0) 0 5px;
+          background-color: #eee;
+          background-position: left top;
+          background-repeat: repeat-y;
+          background-size: 10px 8px;
+        }
+      }
+    }
+
+    li.right-item.hover:hover {
+      div.wrap:nth-of-type(2) div {
+        background: linear-gradient(-45deg, #eea900 5px, transparent 0) 0 5px, linear-gradient(-135deg, #eea900 5px, #fff 0) 0 5px;
+        background-color: #eea900;
+        background-position: left top;
+        background-repeat: repeat-y;
+        background-size: 10px 8px;
+      }
+    }
+
+    li.right-item.success,
+    li.right-item.success:hover {
+      div.wrap:nth-of-type(2) div {
+        background: linear-gradient(-45deg, #00ee21 5px, transparent 0) 0 5px, linear-gradient(-135deg, #00ee21 5px, #fff 0) 0 5px;
+        background-color: #00ee21;
+        background-position: left top;
+        background-repeat: repeat-y;
+        background-size: 10px 8px;
+      }
+    }
+
+    li.right-item.error,
+    li.right-item.error:hover {
+      div.wrap:nth-of-type(2) div {
+        background: linear-gradient(-45deg, #ee0005 5px, transparent 0) 0 5px, linear-gradient(-135deg, #ee0005 5px, #fff 0) 0 5px;
+        background-color: #ee0005;
+        background-position: left top;
+        background-repeat: repeat-y;
+        background-size: 10px 8px;
+      }
+    }
+  }
+
   .animate {
     opacity:0;
     -webkit-transition: opacity 1s ease;
