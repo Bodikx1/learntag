@@ -83,6 +83,40 @@ http.createServer(function (req, res) {
                                     "lang2": "die Wurst"
                                 }
                             ]
+                        },
+                        "003-write-vocabulary-with-image": {
+                            "title": "Write the translation",
+                            "data": [
+                                {
+                                    "lang1": "Hello!",
+                                    "lang2": "Hallo!",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg",
+                                    "startsFromChar": 1,
+                                    "countChar": 5
+                                },
+                                {
+                                    "lang1": "I am Sandra.",
+                                    "lang2": "Ich Bin Sandra.",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg",
+                                    "startsFromChar": 1,
+                                    "countChar": 7
+                                },
+                                {
+                                    "lang1": "How are you?",
+                                    "lang2": "Wie geht's?",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg",
+                                    "tooltip": "<i>Wie geht's?</i> is short for <i>Wie geht es?</i> (lit. How goes it?). The <i>'s</i> replaces <i>es</i>.",
+                                    "startsFromChar": 1,
+                                    "countChar": 8
+                                },
+                                {
+                                    "lang1": "Fine, thank you.",
+                                    "lang2": "Gut, danke.",
+                                    "img": "http://scaleflex.cloudimg.io/crop/200x200/x/sample.li/birds.jpg",
+                                    "startsFromChar": 1,
+                                    "countChar": 3
+                                }
+                            ]
                         }
                     }));
                 } else {
