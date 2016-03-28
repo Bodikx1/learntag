@@ -51,8 +51,8 @@ var LearnTag = function () {
 
             buildModule2 = function (dataObj) {
             var animateEror = function (self) {
-                    var anim1 = $.Deferred(),
-                        anim2 = $.Deferred();
+                    var anim1 = jQuery.Deferred(),
+                        anim2 = jQuery.Deferred();
 
                     jQuery(self).find('.image').animate({
                         marginRight: "-15px"
@@ -70,7 +70,7 @@ var LearnTag = function () {
                         }, 50, "linear");
                     });
 
-                    return $.when(anim1, anim2);
+                    return jQuery.when(anim1, anim2);
                 },
 
                 itemClick = function (event) {
@@ -101,7 +101,7 @@ var LearnTag = function () {
                                 } else {
                                     currQuestionParent.html('<div class="continue btn btn-warning">Continue</div>').show();
                                     if (continueClbFunc) {
-                                        $('.btn.continue').on('click', continueClbFunc);
+                                        jQuery('.btn.continue').on('click', continueClbFunc);
                                     }
                                 }
                             }, 1000);
@@ -111,7 +111,7 @@ var LearnTag = function () {
 
                         jQuery(self).addClass('error');
 
-                        var animErorFirst = $.Deferred();
+                        var animErorFirst = jQuery.Deferred();
 
                         animateEror(self).done(animErorFirst.resolve);
 
@@ -158,8 +158,8 @@ var LearnTag = function () {
 
             buildModule3 = function (dataObj) {
             var animateEror = function (self) {
-                    var anim1 = $.Deferred(),
-                        anim2 = $.Deferred();
+                    var anim1 = jQuery.Deferred(),
+                        anim2 = jQuery.Deferred();
 
                     jQuery(self).find('.wrap:nth-of-type(2)').css({
                         position: 'relative'
@@ -183,7 +183,7 @@ var LearnTag = function () {
                         }, 50, "linear");
                     });
 
-                    return $.when(anim1, anim2);
+                    return jQuery.when(anim1, anim2);
                 },
 
                 itemClick = function (event) {
@@ -194,28 +194,37 @@ var LearnTag = function () {
 
                     var self = this,
                         currQuestion = jQuery(this).find('.lang1'),
-                        currAnswer = jQuery(element).find('.left-item.non-answered:first-of-type .lang1'),
-                        currAnswerPos = currAnswer.parent().css('position','absolute').position();
+                        currAnswer = jQuery(jQuery(element).find('.left-item.non-answered')[0]).find('.lang1'),
+                        currAnswerPos = currAnswer.parent().offset();
 
+                    if (currAnswer.text() === currQuestion.text()) {
+                        if (!jQuery(self).hasClass('success')) {
+                            jQuery(self).addClass('success');
 
-                        if (currAnswer.text() === currQuestion.text()) {
+                            currQuestion.parent().css({
+                                position: 'relative'
+                            }).animate({
+                                top: currAnswerPos.top - currQuestion.parent().offset().top,
+                                left: currAnswerPos.left - currQuestion.parent().offset().left
+                            }, 250, "linear", function () {
+                                currQuestion.parent().hide();
+                                currAnswer.closest('li').removeClass('non-answered');
 
-                        jQuery(self).addClass('success');
-
-                        jQuery(self).find('.wrap:nth-of-type(2)').css({
-                            position: 'relative'
-                        }).animate({
-                            top: currAnswerPos.top,
-                            left: currAnswerPos.left
-                        }, 1000, "linear", function () {
-
-                        });
-
+                                if (!jQuery(element).find('.left-item.non-answered').length) {
+                                    jQuery(element).find('.col-sm-6:nth-of-type(2)').hide();
+                                    jQuery(element).find('.col-sm-6').removeClass('col-sm-6').addClass('col-sm-12 animateAll');
+                                    jQuery(element).append('<div class="row text-center"><div class="continue btn btn-warning">Continue</div></div>');
+                                    if (continueClbFunc) {
+                                        jQuery('.btn.continue').on('click', continueClbFunc);
+                                    }
+                                }
+                            });
+                        }
                     } else {
 
                         jQuery(self).addClass('error');
 
-                        var animErorFirst = $.Deferred();
+                        var animErorFirst = jQuery.Deferred();
 
                         animateEror(self).done(animErorFirst.resolve);
 
@@ -285,7 +294,7 @@ var LearnTag = function () {
             }
 
             if (continueClbFunc) {
-                $('.btn.continue').length && $('.btn.continue').on('click', continueClbFunc);
+                jQuery('.btn.continue').length && jQuery('.btn.continue').on('click', continueClbFunc);
             }
 
             return this;
