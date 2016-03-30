@@ -31,7 +31,6 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
       padding: 5px;
 
       .image {
-        cursor: pointer;
         padding: 7px;
         background: #eee;
         display: inline-block;
@@ -66,6 +65,59 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
       .lang2 {
         font-size: 18px;
       }
+
+      .tooltip {
+        display: none;
+      }
+
+      .input input {
+        outline: none;
+        border: 0;
+        border-bottom: 1px solid black;
+        line-height: 0px;
+        text-align: center;
+
+        -webkit-box-shadow: 0 1px 0px 0 #f0ad4e;
+        box-shadow: 0 1px 0px 0 #f0ad4e;
+      }
+
+      .input input.error {
+        background: #EF0D12;
+      }
+
+      .rand-chars {
+        padding: 0;
+        margin: 10px 0 30px 0;
+
+        li {
+          display: inline-block;
+          list-style: none;
+        }
+
+        li.btn {
+          border: 1px solid gray;
+          margin: 0 1px;
+        }
+
+        li.btn:hover {
+          background: #EFEEEE;
+        }
+
+        li.btn.blur {
+          opacity: 0.5;
+        }
+      }
+
+      .btn.solution {
+        color: #f0ad4e;
+        -webkit-box-shadow: 0 0px 1px 1px #f0ad4e;
+        box-shadow: 0 0px 1px 1px #f0ad4e;
+      }
+
+      .btn.solution:active {
+        -webkit-box-shadow: inset 0 0px 5px 1px #f0ad4e;
+        box-shadow: inset 0 0px 5px 1px #f0ad4e;
+      }
     }
 
     >li.img-item:last-child {
@@ -79,10 +131,49 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
         background: #eee;
         border-radius: 4px
       }
+
+      .tooltip {
+        display: inline-block;
+        position: absolute;
+        padding: 10px;
+        margin-top: -10px;
+
+        div.wnd {
+          display: none;
+        }
+      }
+
+      .tooltip:hover {
+        div.wnd {
+          display: block;
+          background: #fff;
+          position: absolute;
+          bottom: 40px;
+          right: 50%;
+          margin-right: -100px;
+          width: 200px;
+          padding: 10px;
+          border: 1px solid black;
+        }
+
+        div.wnd::before {
+          content: "";
+          position: absolute;
+          width: 0;
+          left: 50%;
+          margin-left: -5px;
+          bottom: -11px;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 10px solid black;
+        }
+      }
     }
 
     li.img-item.hover:hover {
       .image {
+        cursor: pointer;
         background: #eea900;
       }
 
@@ -94,6 +185,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
     li.img-item.success {
       .image {
+        cursor: pointer;
         background: #00ee21 !important;
       }
 
@@ -105,6 +197,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
     li.img-item.error {
       .image {
+        cursor: pointer;
         background: #ee0005 !important;;
       }
 
@@ -290,5 +383,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     -ms-transition: all 1s linear;
     -o-transition: all 1s linear;
     transition: all 1s linear;
+  }
+
+  .non-active {
+    opacity: 0.5;
   }
 }
