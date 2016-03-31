@@ -320,7 +320,7 @@ var LearnTag = function () {
                     }
 
                     jQuery(element).find('.img-item:last-of-type').html(
-                        '<div class="input"><input name="answer" value="" style="width:'+(neededChars.length*8)+'px" maxlength="'+neededChars.length+'">'+questionText.replace(neededChars, '')+'</div>' +
+                        '<div class="input">'+questionText.replace(neededChars, '<input name="answer" value="" style="width:'+(neededChars.length*8)+'px" maxlength="'+neededChars.length+'">')+'</div>' +
                         '<ul class="rand-chars">'+randChars+'</ul>' +
                         '<div class="btn solution">Show solution</div>'
                     );
@@ -336,9 +336,9 @@ var LearnTag = function () {
                     }
                     var answer = jQuery(element).find('.lang2:not([class*="fadeIn"])').first().text();
                     if (usersAnswer.length === 1) {
-                        return answer[0] === usersAnswer[0];
+                        return usersAnswer === neededChars[0];
                     } else if (usersAnswer.length > 1) {
-                        return answer.indexOf(usersAnswer)!==-1;
+                        return neededChars.indexOf(usersAnswer)!==-1;
                     }
                 },
 
@@ -525,6 +525,274 @@ var LearnTag = function () {
 
             dataModel = dataObj.data;
             buildQuestion(dataModel[0].lang2, dataModel[0].startsFromChar-1, dataModel[0].countChar);
+        },
+
+            buildModule5 = function (dataObj) {
+            var animateEror = function (self) {
+                    var anim1 = jQuery.Deferred(),
+                        anim2 = jQuery.Deferred();
+
+                    jQuery(self).animate({
+                        marginRight: "-15px"
+                    }, 50, "linear", anim1.resolve);
+
+                    anim1.done(function() {
+                        jQuery(self).animate({
+                            marginRight: "15px"
+                        }, 50, "linear", anim2.resolve);
+                    });
+
+                    anim2.done(function() {
+                        jQuery(self).animate({
+                            marginRight: "0px"
+                        }, 50, "linear");
+                    });
+
+                    return jQuery.when(anim1, anim2);
+                },
+
+                buildQuestion = function (questionText, startsFromChar, countChar) {
+                    // reset previous question:
+                    jQuery(element).find('input[name="answer"]').off('keyup');
+                    jQuery(element).find('ul.rand-chars > li').off('click');
+                    jQuery(element).find('.btn.solution').off('click');
+
+                    randChars = '';
+                    answerChars = '';
+                    neededChars = questionText.substr(startsFromChar, countChar);
+                    // reset ends;
+
+                    for(var r=(Math.floor(Math.random() * neededChars.length) + 0), i=0, added=[]; i < neededChars.length; r=Math.floor(Math.random() * neededChars.length) + 0) {
+                        if (jQuery.inArray(r, added) === -1) {
+                            randChars+= '<li '+ (neededChars[r] === ' ' ? 'style="visibility:hidden;"' : '') +' class="btn">'+neededChars[r]+'</li>';
+                            added.push(r);
+                            i++;
+                        }
+                    }
+
+                    jQuery(element).find('.img-item:last-of-type').html(
+                        '<div class="input">'+questionText.replace(neededChars, '<input name="answer" value="" style="width:'+(neededChars.length*8)+'px" maxlength="'+neededChars.length+'">')+'</div>' +
+                        '<ul class="rand-chars">'+randChars+'</ul>' +
+                        '<div class="btn solution">Show solution</div>'
+                    );
+
+                    jQuery(element).find('input[name="answer"]').on('keyup', inputType);
+                    jQuery(element).find('ul.rand-chars > li').on('click', charClick);
+                    jQuery(element).find('.btn.solution').on('click', solutionClick);
+                },
+
+                checkAnswer = function (usersAnswer) {
+                    if (!jQuery(element).find('.lang2:not([class*="fadeIn"])').length || !usersAnswer.length) {
+                        return false;
+                    }
+                    var answer = jQuery(element).find('.lang2:not([class*="fadeIn"])').first().text();
+                    if (usersAnswer.length === 1) {
+                        return usersAnswer === neededChars[0];
+                    } else if (usersAnswer.length > 1) {
+                        return neededChars.indexOf(usersAnswer)!==-1;
+                    }
+                },
+
+                toggleBlurChar = function (char, blurDisable) {
+                    if (blurDisable === true) {
+                        jQuery(element).find('ul.rand-chars > li:contains("'+char+'")').filter('[class*="blur"]').length
+                        && jQuery(element).find('ul.rand-chars > li:contains("'+char+'")').filter('[class*="blur"]').first().removeClass('blur');
+                    } else {
+                        jQuery(element).find('ul.rand-chars > li:contains("' + char + '")').filter(':not([class*="blur"])').length
+                        && jQuery(element).find('ul.rand-chars > li:contains("' + char + '")').filter(':not([class*="blur"])').first().addClass('blur');
+                    }
+                },
+
+                showToolTip = function (tooltip) {
+                    // users answer reset
+                    jQuery(element).find('input[name="answer"]').off('keyup');
+                    jQuery(element).find('ul.rand-chars > li').off('click');
+                    jQuery(element).find('.btn.solution').off('click');
+                    // users answer reset ends;
+
+                    var userAnswerInput = jQuery(element).find('input[name="answer"]'),
+                        userAnswerWraper = userAnswerInput.parent();
+
+                    userAnswerWraper.append(tooltip);
+                    userAnswerWraper.find('.btn.okay').on('click', function (event) {
+                        switchQuestion();
+                    });
+                },
+
+                switchQuestion = function () {
+                    answer = jQuery(element).find('.lang2:not([class*="fadeIn"])').first();
+
+                    if (!answer) {
+                        return;
+                    }
+
+                    answer.closest('li').removeClass('non-active');
+                    answer.closest('li').prev().addClass('non-active');
+                    dataIndex = answer.closest('li').data('index');
+
+                    if (dataIndex) {
+                        buildQuestion(dataModel[dataIndex].lang2, dataModel[dataIndex].startsFromChar - 1, dataModel[dataIndex].countChar);
+                    } else {
+                        jQuery(element).find('.img-item.non-active').removeClass('non-active');
+                        jQuery(element).find('input[name="answer"]').closest('li').html('<div class="continue btn btn-warning">Continue</div>');
+                        if (continueClbFunc) {
+                            jQuery('.btn.continue').on('click', continueClbFunc);
+                        }
+                    }
+                },
+
+                nextQuestion = function () {
+                    var userAnswerInput = jQuery(element).find('input[name="answer"]'),
+                        userAnswerWraper = userAnswerInput.parent(),
+                        answer = jQuery(element).find('.lang2:not([class*="fadeIn"])').first(),
+                        dataIndex = 0;
+
+                    userAnswerInput.css('background', 'lightgreen');
+
+                    setTimeout(function () {
+                        userAnswerInput.css('background', 'none');
+                        answer.addClass('fadeIn');
+
+                        setTimeout(answer.closest('li').find('.tooltip').length ? showToolTip.bind(null, answer.closest('li').find('.tooltip')) : switchQuestion, 1000);
+                    }, 500);
+
+                    userAnswerWraper.nextUntil('li').hide();
+                },
+
+                inputType = function (event) {
+                    var self = event.target,
+                        answer = jQuery(self).val(),
+                        maxLength = parseInt(jQuery(event.target).attr('maxlength')),
+                        backsapceKeyPressed = (event.keyCode === 8);
+
+
+                    backsapceKeyPressed && toggleBlurChar(answerChars[answerChars.length-1], true);
+                    answerChars = answer;
+
+                    if (checkAnswer(answer)) {
+                        !backsapceKeyPressed && toggleBlurChar(answer[answer.length-1], false);
+
+                        if (answer.length === maxLength) {
+                            jQuery(self).prop('readonly', true);
+                            nextQuestion();
+                        }
+                    } else {
+                        answerChars = answerChars.slice(0, -1);
+                        jQuery(self).val(answerChars);
+
+                        jQuery(self).addClass('error');
+
+                        var animErorFirst = jQuery.Deferred();
+
+                        animateEror(self).done(animErorFirst.resolve);
+
+                        animErorFirst.done(function () {
+                            // animate again:
+                            animateEror(self);
+                        });
+
+                        setTimeout(function () {
+                            jQuery(self).removeClass('error');
+                        }, 500);
+                    }
+                },
+
+                charClick = function (event) {
+                    if (jQuery(event.target).hasClass('blur')) {
+                        return;
+                    }
+
+                    var self = event.target,
+                        answer = jQuery(self).text(),
+                        userAnswerInput = jQuery(element).find('input[name="answer"]'),
+                        maxLength = jQuery(event.target).parent().children().length;
+
+                    answerChars+= answer;
+                    userAnswerInput.val(answerChars);
+
+                    if (checkAnswer(answerChars)) {
+                        jQuery(event.target).addClass('blur');
+                        userAnswerInput.focus();
+
+                        if (jQuery(event.target).parent().children('.blur').length === maxLength) {
+                            userAnswerInput.prop('readonly', true);
+                            nextQuestion();
+                        }
+                    } else {
+                        answerChars = answerChars.slice(0, -1);
+                        userAnswerInput.val(answerChars);
+
+                        jQuery(userAnswerInput).addClass('error');
+
+                        var animErorFirst = jQuery.Deferred();
+
+                        animateEror(userAnswerInput).done(animErorFirst.resolve);
+
+                        animErorFirst.done(function () {
+                            // animate again:
+                            animateEror(userAnswerInput);
+                        });
+
+                        setTimeout(function () {
+                            jQuery(userAnswerInput).removeClass('error');
+                        }, 500);
+                    }
+                },
+
+                solutionClick = function (event) {
+                    var answer = jQuery(element).find('.lang2:not([class*="fadeIn"])').first().text();
+
+                    for (var i=0; i < answer.length; i++) {
+                        jQuery(element).find('ul.rand-chars > li:contains("'+answer[i]+'")').filter(':not([class*="blur"])').first().trigger('click');
+                    }
+                },
+
+                playBtnClick = function (event) {
+                    var self = event.target;
+
+                    jQuery('audio')[0].play();
+                    jQuery(self).animate({
+                        opacity: "0.1"
+                    }, 500, "linear", function () {
+                        jQuery(self).animate({
+                            opacity: "1"
+                        }, 500, "linear");
+                    });
+                };
+
+            for(var i= 0, soundExt=dataObj.data[i].sound.split('.'); i < dataObj.data.length; i++) {
+                items += '<li data-index="'+i+'" class="img-item sound '+ (i !== 0 ? 'non-active' : '') +'">' +
+                    '<div class="wrap text-center">' +
+                    '<div class="image sound">' +
+                    '<div class="play-btn"><span class="fa fa-volume-up"><br>play</span></div>' +
+                    '<audio controls>' +
+                    '<source src="'+dataObj.data[i].sound+'" type="audio/'+soundExt[soundExt.length-1]+'">' +
+                    'Your browser does not support the audio element.' +
+                    '</audio>' +
+                    '</div>' +
+                    '<p class="lang2 animate">' + dataObj.data[i].lang2 + '</p>' +
+                    (dataObj.data[i].tooltip ? '<span class="tooltip"><span class="fa fa-info-circle"> info</span> <div class="wnd">' + dataObj.data[i].tooltip + '<br><div style="margin-top: 5px;" class="okay btn btn-warning">OK</div></div></span>' : '') +
+                    '</div>' +
+                    '</li>';
+
+                if(i === dataObj.data.length-1) {
+                    items += '<li class="img-item text-center">' +
+                        '</li>';
+                }
+            }
+
+            html = '<div class="row text-center"><h2>'+dataObj.title+'</h2></div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<ul class="img-items">' + items + '</ul>' +
+                '</div>' +
+                '</div>';
+
+            jQuery(element).html(html);
+
+            dataModel = dataObj.data;
+            buildQuestion(dataModel[0].lang2, dataModel[0].startsFromChar-1, dataModel[0].countChar);
+            jQuery(element).find('.play-btn span').on('click', playBtnClick);
         };
         // private methods ends;
 
@@ -549,6 +817,10 @@ var LearnTag = function () {
 
                 case '003-write-vocabulary-with-image':
                     buildModule4(dataObj);
+                    break;
+
+                case '004-write-word-from-sound':
+                    buildModule5(dataObj);
                     break;
             }
 

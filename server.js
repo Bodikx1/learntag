@@ -117,6 +117,18 @@ http.createServer(function (req, res) {
                                     "countChar": 3
                                 }
                             ]
+                        },
+                        "004-write-word-from-sound": {
+                            "title": "Listen and complete",
+                            "data": [
+                                {
+                                    "lang1": "Would you like (some) bread?",
+                                    "lang2": "Mochtest du Brot?",
+                                    "sound": "http://www.w3schools.com/html/horse.ogg",
+                                    "startsFromChar": 13,
+                                    "countChar": 4
+                                }
+                            ]
                         }
                     }));
                 } else {
